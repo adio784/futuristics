@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, {useContext} from "react";
+import { UserContext } from "../../Contexts/userContext";
 import Logos from "../../assets/images/logo.png";
 import Logol from "../../assets/images/logo-light.png";
 import Logom from "../../assets/images/logo-mobile.png";
@@ -21,6 +21,12 @@ import Avatar7 from "../../assets/images/avatars/avatar-7.jpg";
 // "assets/images/group/group-1.jpg"
 
 const Header = ()=> {
+    const { user, logout } = useContext(UserContext)
+
+    const handleLogout = () => {
+        logout()
+      }
+    
 
     return (
         <header class="z-[100] bg-white h-[--m-top] fixed top-0 left-0 w-full flex items-center bg-white/80 sky-50 backdrop-blur-xl border-b border-slate-200 dark:bg-dark2 dark:border-slate-800">
@@ -331,7 +337,7 @@ const Header = ()=> {
                                     <div class="p-4 py-5 flex items-center gap-4">
                                         <img src={Avatar2} alt="" class="w-10 h-10 rounded-full shadow"></img>
                                         <div class="flex-1">
-                                            <h4 class="text-sm font-medium text-black">Stell johnson</h4>
+                                            <h4 class="text-sm font-medium text-black">{user.firstname} {user.lastname}</h4>
                                             <div class="text-sm mt-1 text-blue-600 font-light dark:text-white/70">@mohnson</div>
                                         </div>
                                     </div>
@@ -362,7 +368,7 @@ const Header = ()=> {
                                         </div>
                                     </button>   
                                     <hr class="-mx-2 my-2 dark:border-gray-600/60"/>
-                                    <a href="form-login.html">
+                                    <a onClick={handleLogout}>
                                         <div class="flex items-center gap-2.5 hover:bg-secondery p-2 px-2.5 rounded-md dark:hover:bg-white/10"> 
                                             <svg class="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
