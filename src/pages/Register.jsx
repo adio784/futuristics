@@ -19,7 +19,7 @@ const Register = () => {
 
   const handleRegister = async e => {
     try {
-      e.preventDefault()
+      e.preventDefault();
       const response = await registerUser({
         firstname,
         lastname,
@@ -29,15 +29,19 @@ const Register = () => {
         birth_year,
         password,
         password_confirmation
-      })
-      toast.success('Registration Successfully')
-      alert(`Your email now is ${response.data.username}`)
-      navigate('/')
+      });
+      const userEmail = response.data.email;
+      console.log(response.data.email)
+      toast.success('Registration Successful');
+      const confirmationMessage = `Your email now is ${userEmail}. Please copy it.`;
+      alert(confirmationMessage);
+      navigate('/');
     } catch (err) {
-      console.log(err.message)
-      toast.error('Registration Failed')
+      console.log(err.message);
+      toast.error('Registration Failed');
     }
   }
+  
 
   return (
     <div class='sm:flex'>
