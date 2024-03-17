@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import LoginSide from '../components/SideNav/LoginSide'
 import Main from '../components/Main/Main'
 
@@ -77,9 +78,9 @@ const Login = () => {
             </p>
             <p class='text-sm text-gray-700 font-normal'>
               If you haven’t signed up yet.{' '}
-              <a href='register' class='text-gold-600'>
+              <Link to={'/register'} class='text-gold-600'>
                 Register here!
-              </a>
+              </Link>
             </p>
           </div>
 

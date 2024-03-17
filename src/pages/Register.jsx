@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Logoico from '../assets/images/logo-icon.png'
 import Post2 from '../assets/images/post/img-2.jpg'
 import { registerUser } from '../API/userApi'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const Register = () => {
@@ -67,10 +67,10 @@ const Register = () => {
             </p>
             <p class='text-sm text-gray-700 font-normal'>
               Already have an Account?
-              <a href='login' class='text-gold-600 font-bold'>
+              <Link to={'/'} class='text-gold-600 font-bold'>
                 {' '}
                 Login here!
-              </a>
+              </Link>
             </p>
           </div>
 
