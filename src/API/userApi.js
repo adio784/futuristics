@@ -8,6 +8,17 @@ export const registerUser = async (payload) => {
     return response
 };
 
+export const verifyEmail = async (payload) => {
+  const response = await axios.post(`${baseUrl}/email/verify`, payload, {
+    headers : {
+      Accept: 'application/json',
+      Authorization : `Bearer ${JSON.parse(localStorage.getItem('userToken'))}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  console.log(response)
+  return response
+}
 
 export const loginUser = async payload => {
   const response = await axios.post(

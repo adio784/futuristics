@@ -8,40 +8,53 @@ import { toast } from 'react-toastify'
 const Register = () => {
   const navigate = useNavigate()
 
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
+  const [surname, setSurname] = useState('')
+  const [othername, setOthername] = useState('')
+  const [email, setEmail] = useState('')
   const [gender, setGender] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [password_confirmation, setPasswordConfirmation] = useState('')
   const [birth_day, setBirthDay] = useState('')
   const [birth_month, setBirthMonth] = useState('')
   const [birth_year, setBirthYear] = useState('')
-  const [password, setPassword] = useState('')
-  const [password_confirmation, setPasswordConfirmation] = useState('')
 
   const handleRegister = async e => {
     try {
-      e.preventDefault();
+      e.preventDefault()
       const response = await registerUser({
-        firstname,
-        lastname,
+        surname,
+        othername,
+        email,
         gender,
+        username,
         birth_day,
         birth_month,
         birth_year,
         password,
         password_confirmation
-      });
-      const userEmail = response.data.email;
+      })
+      const userEmail = response.data.email
       console.log(response.data.email)
-      toast.success('Registration Successful');
-      const confirmationMessage = `Your email now is ${userEmail}. Please copy it.`;
-      alert(confirmationMessage);
-      navigate('/');
+      toast.success('Registration Successful')
+      navigate('/verify-email')
     } catch (err) {
-      console.log(err.message);
-      toast.error('Registration Failed');
+      console.log(err.message)
+      toast.error('Registration Failed')
     }
   }
-  
+
+  const generateOptions = (start, end) => {
+    const options = []
+    for (let i = start; i <= end; i++) {
+      options.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      )
+    }
+    return options
+  }
 
   return (
     <div class='sm:flex'>
@@ -83,13 +96,13 @@ const Register = () => {
             <div className=' text-left'>
               <div class='mt-2'>
                 <input
-                  id='firstname'
-                  name='firstname'
-                  onChange={e => setFirstname(e.target.value)}
-                  value={firstname}
+                  id='surname'
+                  name='surname'
+                  onChange={e => setSurname(e.target.value)}
+                  value={surname}
                   type='text'
-                  autocomplete='firstname'
-                  placeholder='Firstname'
+                  autocomplete='surname'
+                  placeholder='Surname'
                   required
                   class='block w-full bg-white rounded-md border-0 py-1.5 text-white shadow-sm placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6'
                 />
@@ -98,13 +111,44 @@ const Register = () => {
             <div className=' text-left'>
               <div class='mt-2'>
                 <input
-                  id='lastname'
-                  name='lastname'
-                  value={lastname}
-                  onChange={e => setLastname(e.target.value)}
+                  id='othername'
+                  name='othername'
+                  value={othername}
+                  onChange={e => setOthername(e.target.value)}
                   type='text'
-                  autocomplete='lastname'
-                  placeholder='Lastname'
+                  autocomplete='othername'
+                  placeholder='Othername'
+                  required
+                  class='block w-full bg-white rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-black placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6'
+                />
+              </div>
+            </div>
+            <div className=' text-left'>
+              <div class='mt-2'>
+                <input
+                  id='email'
+                  name='email'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  type='text'
+                  autocomplete='email'
+                  placeholder='Email Address'
+                  required
+                  class='block w-full bg-white rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-black placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6'
+                />
+              </div>
+            </div>
+
+            <div className=' text-left'>
+              <div class='mt-2'>
+                <input
+                  id='username'
+                  name='text'
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  type='text'
+                  autocomplete='username'
+                  placeholder='Username'
                   required
                   class='block w-full bg-white rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-black placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6'
                 />
@@ -162,7 +206,7 @@ const Register = () => {
                   <option value='' selected>
                     Day
                   </option>
-                  <option>1</option>
+                  {generateOptions(1, 31)}
                 </select>
                 <select
                   name='birth_month'
@@ -172,8 +216,7 @@ const Register = () => {
                   class='block text-sm font-medium leading-6 text-black m-2'
                 >
                   <option value='' selected>
-                    {' '}
-                    -- Month --{' '}
+                    -- Month --
                   </option>
                   <option value={'January'}>January</option>
                   <option value={'February'}>February</option>
@@ -196,11 +239,9 @@ const Register = () => {
                   class='block text-sm font-medium leading-6 text-black'
                 >
                   <option value='' selected>
-                    {' '}
-                    -- Year --{' '}
+                    -- Year --
                   </option>
-                  <option>1971</option>
-                  <option>1972</option>
+                  {generateOptions(1900, new Date().getFullYear())}
                 </select>
               </div>
               <div class='mt-4'>
