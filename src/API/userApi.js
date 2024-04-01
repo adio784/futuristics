@@ -32,6 +32,12 @@ export const verifyUserEmail = async (payload) => {
 export const loginUser = async payload => {
   const response = await axios.post(`${baseUrl}/api/auth/login`, payload)
   console.log(response?.data)
+  const { access_token } = response.data;
+  localStorage.setItem('loginToken', JSON.stringify(access_token))
+  console.log(access_token)
+
+  const userToken = JSON.parse(localStorage.getItem('loginToken'))
+  console.log(userToken)
   return response
 }
 
