@@ -1,56 +1,30 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import LoginSide from '../components/SideNav/LoginSide'
-import Main from '../components/Main/Main'
-
-import Avatar2 from '../assets/images/avatars/avatar-2.jpg'
-import Avatar3 from '../assets/images/avatars/avatar-3.jpg'
-import Avatar4 from '../assets/images/avatars/avatar-4.jpg'
-import Avatar5 from '../assets/images/avatars/avatar-5.jpg'
-import Avatar6 from '../assets/images/avatars/avatar-6.jpg'
-import Avatar7 from '../assets/images/avatars/avatar-7.jpg'
-
-import AvatarLg1 from '../assets/images/avatars/avatar-lg-1.jpg'
-import AvatarLg2 from '../assets/images/avatars/avatar-lg-2.jpg'
-import AvatarLg3 from '../assets/images/avatars/avatar-lg-2.jpg'
-import AvatarLg4 from '../assets/images/avatars/avatar-lg-4.jpg'
-import AvatarLg5 from '../assets/images/avatars/avatar-lg-5.jpg'
-
-import Post2 from '../assets/images/post/img-2.jpg'
-import Post3 from '../assets/images/post/img-3.jpg'
-import Post4 from '../assets/images/post/img-4.jpg'
-
-import Logos from '../assets/images/logo.png'
-import Logol from '../assets/images/logo-light.png'
-import Logom from '../assets/images/logo-mobile.png'
-import Logoml from '../assets/images/logo-mobile-light.png'
+import React, { useState } from 'react'
 import Logoico from '../assets/images/logo-icon.png'
-import { loginUser } from '../API/userApi'
+import Post2 from '../assets/images/post/img-2.jpg'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { UserContext } from '../Contexts/userContext'
+import { verifyUserEmail } from '../API/userApi'
 
-const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  const {setUser} = useContext(UserContext)
-
+const VerifyEmail = () => {
+  const [token, setToken] = useState(null)
   const navigate = useNavigate()
-
-  const handleLogin = async e => {
+  console.log(token)
+  const handleVerifyEmail = async e => {
     try {
       e.preventDefault()
-     const response = await loginUser({
-        username,
-        password
-      })
-      setUser(response.data.User)
-      toast.success('Login Successful')
-      navigate('/user-dashboard')
-    } catch (err) {
-      console.log(err.message)
-      toast.error('Login Failed')
+       // Create a new instance of FormData
+       const formData = new FormData()
+       formData.append('token', token)
+       
+       // Call the verifyUserEmail function with FormData
+       const response = await verifyUserEmail(formData)
+       
+       console.log(response.data)
+       toast.success('Email Verified Successfully')
+       navigate('/')
+    } catch (error) {
+      console.error('Email verification failed:', error)
+      toast.error('Email verification failed. Please try again.')
     }
   }
 
@@ -74,81 +48,40 @@ const Login = () => {
           {/* <!-- title --> */}
           <div>
             <p className='text-3xl text-gray-700 font-bold mt-4 mb-2'>
-              Welcome Back!
-            </p>
-            <p class='text-sm text-gray-700 font-normal'>
-              If you haven’t signed up yet.{' '}
-              <Link to={'/register'} class='text-gold-600'>
-                Register here!
-              </Link>
+              Email Verification
             </p>
           </div>
 
           {/* <!-- form --> */}
           <form
-            method='#'
-            action='#'
             class='space-y-7 text-sm text-black font-medium dark:text-black'
             uk-scrollspy='target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true'
           >
             {/* <!-- email --> */}
-            <div>
-              <label for='email' class=''>
-                Email address / Phone Number
-              </label>
-              <div class='mt-2.5'>
+
+            <div className=' text-left'>
+              <div class='mt-2'>
                 <input
-                  id='email'
-                  name='username'
-                  type='email'
-                  onChange={e => setUsername(e.target.value)}
-                  autofocus=''
-                  placeholder='Email or phone'
-                  required=''
-                  class='!w-full !rounded-lg text-black bg-black !shadow-sm !border-slate-200 dark:!border-slate-800'
+                  type='number'
+                  name='token'
+                  placeholder='Enter the verification code'
+                  required
+                  class='block w-full bg-white rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-black placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6'
+                  onChange={e => setToken(e.target.value)}
+                  value={token}
                 />
               </div>
-            </div>
-
-            {/* <!-- password --> */}
-            <div>
-              <label for='email' class=''>
-                Password
-              </label>
-              <div class='mt-2.5'>
-                <input
-                  id='password'
-                  onChange={e => setPassword(e.target.value)}
-                  name='password'
-                  type='password'
-                  placeholder='***'
-                  class='!w-full !text-gray-70 !rounded-lg !shadow-sm !border-slate-200 dark:!border-slate-800 '
-                />
-              </div>
-            </div>
-
-            <div class='flex items-center justify-between'>
-              {/* <div class='flex items-center gap-2.5'>
-                <input id='rememberme' name='rememberme' type='checkbox' />
-                <label for='rememberme' class='font-normal'>
-                  Remember me
-                </label> 
-              </div> */}
-              <a href='#' class='text-gold-600'>
-                Forgot password{' '}
-              </a>
             </div>
 
             {/* <!-- submit button --> */}
             <div>
               <button
-                onClick={handleLogin}
                 type='submit'
+                onClick={handleVerifyEmail}
                 class='button bg-black text-white w-full'
               >
-                Sign in
+                Verify Email
               </button>
-              {/* <button type="submit" class="button bg-black text-white w-full mt-4" onClick={'signInWithGoogle'}>Sign in with Google</button> */}
             </div>
           </form>
         </div>
@@ -191,7 +124,7 @@ const Login = () => {
                   >
                     {' '}
                     At Futuristic! We are committed to serving our customers
-                    better.
+                    better.{' '}
                   </p>
                 </div>
               </div>
@@ -226,7 +159,7 @@ const Login = () => {
                   >
                     {' '}
                     At Futuristic! We are committed to serving our customers
-                    better.
+                    better.{' '}
                   </p>
                 </div>
               </div>
@@ -246,4 +179,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default VerifyEmail

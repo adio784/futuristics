@@ -10,6 +10,7 @@ import Message from './Message'
 import 'react-toastify/dist/ReactToastify.css'
 import ProtectedUserRoutes from '../Utils/ProtectedUserRoutes'
 import { UserContextProvider } from '../Contexts/userContext'
+import VerifyEmail from './VerifyEmail'
 
 const Pages = () => {
   return (
@@ -26,6 +27,7 @@ const Pages = () => {
             <Route index element={<Login />}></Route>
             <Route path='/register' element={<Register />}></Route>
             <Route path='/reset-password' element={<ResetPassword />}></Route>
+            <Route path='/verify-email' element={<VerifyEmail />}></Route>
             <Route path='/live' element={<LivePage />}></Route>
             <Route path='/message' element={<Message />}></Route>
             <Route path='/user-dashboard' element={<ProtectedUserRoutes />}>

@@ -1,0 +1,12 @@
+{
+  "surname" : "Kobiowu",
+  "othername": "Quadri",
+  "email" : "kobiowuq@gmail.com",
+  "gender" : "male",
+  "username": "Devquat",
+  "password": "password1234!",
+  "password_confirmation":"password1234!",
+  "birth_day":30,
+  "birth_month":"August",
+  "birth_year":1980
+}
