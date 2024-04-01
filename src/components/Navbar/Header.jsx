@@ -20,6 +20,13 @@ import Avatar7 from '../../assets/images/avatars/avatar-7.jpg'
 // "assets/images/group/group-2.jpg"
 // "assets/images/group/group-1.jpg"
 
+function reduceImageSize (svgData) {
+  // Modify the width and height attributes of the SVG element
+  return svgData
+    .replace(/width="[^"]*"/, 'width="50"')
+    .replace(/height="[^"]*"/, 'height="50"')
+}
+
 const Header = () => {
   const { user, logout } = useContext(UserContext)
 
@@ -697,23 +704,27 @@ const Header = () => {
                 class='hidden bg-white rounded-lg drop-shadow-xl dark:bg-slate-700 w-64 border2'
                 uk-drop='offset:6;pos: bottom-right;animate-out: true; animation: uk-animation-scale-up uk-transform-origin-top-right '
               >
-                <a href='#'>
-                  <div className='p-4 py-5 flex items-center gap-4'>
-                    <div className='w-5 h-5 flex items-center justify-center rounded-full shadow'>
-                      <div
-                        dangerouslySetInnerHTML={{ __html: user.profile_image }}
-                      />
-                    </div>
-                    <div className='flex-1'>
-                      <h4 className='text-sm font-medium text-black'>
-                        {user.firstname} {user.lastname}
-                      </h4>
-                      <div className='text-sm mt-1 text-blue-600 font-light dark:text-white/70'>
-                        {user.username}
-                      </div>
+                {/* <a href='#'> */}
+                <div className='p-5 py-5 flex items-center gap-4'>
+                  <div className='w-5 h-5 flex items-center justify-center rounded-full shadow'>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: reduceImageSize(user.profileImage)
+                      }}
+                    />
+                  </div>
+                  <div className='flex-1'>
+                    <h4 className='text-sm font-medium text-black'>
+                      {user.firstname} {user.username}
+                    </h4>
+                    <div className='text-sm mt-1 text-blue-600 font-light dark:text-white/70'>
+                      {user.surname} &nbsp;
+                      {user.othername}
                     </div>
                   </div>
-                </a>
+                </div>
+
+                {/* </a> */}
 
                 <hr class='dark:border-gray-600/60' />
 
