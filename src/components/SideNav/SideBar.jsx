@@ -37,7 +37,7 @@ const SideBar = ()=> {
                                 </a>
                             </li>
                             <li>
-                                <a href="/message">
+                                <a href="/user-dashboard/message">
                                     <img src={message} alt="messages" class="w-5"></img>
                                     <span> messages </span> 
                                 </a>

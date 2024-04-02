@@ -14,10 +14,11 @@ export const registerUser = async payload => {
   return response
 }
 
-export const verifyUserEmail = async (payload) => {
-    const userToken = JSON.parse(localStorage.getItem('userToken'));
-    console.log(userToken)
-    const response = await axios.post(`${baseUrl}/email/verify`, payload, {
+const userToken = JSON.parse(localStorage.getItem('userToken'));
+console.log(userToken)
+
+export const verifyUserEmail = async payload => {
+    const response = await axios.post(`${baseUrl}/api/email/verify`, payload, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${userToken}`,
@@ -32,7 +33,7 @@ export const verifyUserEmail = async (payload) => {
 export const loginUser = async payload => {
   const response = await axios.post(`${baseUrl}/api/auth/login`, payload)
   console.log(response?.data)
-  const { access_token } = response.data;
+  const { access_token } = response.data
   localStorage.setItem('loginToken', JSON.stringify(access_token))
   console.log(access_token)
 
@@ -43,7 +44,7 @@ export const loginUser = async payload => {
 
 
 export const sendMessage = async (payload) => {
-  const userToken = JSON.parse(localStorage.getItem('userToken'));
+  const userToken = JSON.parse(localStorage.getItem('userToken'))
   console.log(userToken)
   const response = await axios.post(`${baseUrl}/api/send-message`, payload, {
     headers: {
