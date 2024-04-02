@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import group from "../../assets/images/icons/group.png";
 import eventd from "../../assets/images/icons/event.png";
 import game from "../../assets/images/icons/game.png";
@@ -31,16 +31,16 @@ const SideBar = ()=> {
                     
                         <ul>
                             <li class="active">
-                                <a href="/" className="text-black">
+                                <Link to="/user-dashboard" className="text-black">
                                     <img src={home} alt="feeds" class="w-6"></img>
                                     <span> Home </span> 
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="/user-dashboard/message">
+                                <Link to="/user-dashboard/message">
                                     <img src={message} alt="messages" class="w-5"></img>
                                     <span> messages </span> 
-                                </a>
+                                </Link>
                             </li> 
                             <li>
                                 <a href="/live">
