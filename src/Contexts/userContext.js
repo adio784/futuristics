@@ -15,6 +15,13 @@ function UserContextProvider({ children }) {
     }
   }, [])
 
+  useEffect(() => {
+    const storedUserToken = JSON.parse(localStorage.getItem('loginToken'))
+    if (storedUserToken !== authUser) {
+      setAuthUser(storedUserToken)
+    }
+  }, [])
+
   const logout = () => {
     setUser(null)
     setAuthUser(null)
