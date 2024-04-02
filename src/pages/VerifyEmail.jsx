@@ -12,16 +12,13 @@ const VerifyEmail = () => {
   const handleVerifyEmail = async e => {
     try {
       e.preventDefault()
-       // Create a new instance of FormData
-       const formData = new FormData()
-       formData.append('token', token)
-       
-       // Call the verifyUserEmail function with FormData
-       const response = await verifyUserEmail(formData)
-       
-       console.log(response.data)
-       toast.success('Email Verified Successfully')
-       navigate('/')
+      const formData = new FormData()
+      formData.append('token', token)
+      const response = await verifyUserEmail(formData)
+
+      console.log(response.data)
+      toast.success('Email Verified Successfully')
+      navigate('/')
     } catch (error) {
       console.error('Email verification failed:', error)
       toast.error('Email verification failed. Please try again.')
@@ -62,7 +59,7 @@ const VerifyEmail = () => {
             <div className=' text-left'>
               <div class='mt-2'>
                 <input
-                  type='number'
+                  type='text'
                   name='token'
                   placeholder='Enter the verification code'
                   required

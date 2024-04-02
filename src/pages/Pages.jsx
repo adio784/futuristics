@@ -29,9 +29,9 @@ const Pages = () => {
             <Route path='/reset-password' element={<ResetPassword />}></Route>
             <Route path='/verify-email' element={<VerifyEmail />}></Route>
             <Route path='/live' element={<LivePage />}></Route>
-            <Route path='/message' element={<Message />}></Route>
             <Route path='/user-dashboard' element={<ProtectedUserRoutes />}>
               <Route index element={<Dashboard />} />
+              <Route path='message' element={<Message />}/>
             </Route>
           </Routes>
         </UserContextProvider>
